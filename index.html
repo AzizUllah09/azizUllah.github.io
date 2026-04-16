@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aziz Ullah — Data & BI Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#ffffff;--bg-card:#f7f8fb;--bg-card-hover:#eef0f5;--accent:#0891b2;--accent-2:#0d9488;--accent-warm:#e85d3a;--accent-gold:#d97706;--accent-dim:#0e7490;--accent-glow:rgba(8,145,178,0.1);--text:#1a1a2e;--text-dim:#52556a;--text-muted:#8b8fa3;--border:#e2e4ec;--border-accent:#d0d3de;--gradient-accent:linear-gradient(135deg,#0891b2,#0d9488);--gradient-warm:linear-gradient(135deg,#e85d3a,#d97706);--gradient-card:linear-gradient(145deg,#f7f8fb,#f0f2f8);--serif:'Playfair Display',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;--radius:14px}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+    ::selection{background:var(--accent);color:var(--bg)}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+    .ambient-blob{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+    .blob-1{width:500px;height:500px;background:rgba(8,145,178,0.05);top:-10%;left:-5%}
+    .blob-2{width:400px;height:400px;background:rgba(13,148,136,0.04);bottom:20%;right:-5%}
+    .blob-3{width:350px;height:350px;background:rgba(232,93,58,0.03);top:50%;left:30%}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(24px) saturate(1.4);background:rgba(255,255,255,0.85);border-bottom:1px solid rgba(226,228,236,0.8)}
+    .nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:700;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:var(--text-dim);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color .3s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gradient-accent);transition:width .3s}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-links a:hover::after{width:100%}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{width:22px;height:2px;background:var(--text-dim);transition:all .3s}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2.5rem 4rem;position:relative}
+    .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(200,205,220,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(200,205,220,0.4) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 60% 50% at 50% 35%,black 10%,transparent 70%)}
+    .hero-glow-orb{position:absolute;top:5%;left:45%;width:700px;height:700px;background:radial-gradient(circle,rgba(8,145,178,0.06),rgba(13,148,136,0.04) 40%,transparent 70%);pointer-events:none}
+    .hero-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}
+    .hero-content{max-width:700px}
+    .hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;padding:.5rem 1rem;border:1px solid rgba(8,145,178,0.25);border-radius:100px;background:rgba(8,145,178,0.05);margin-bottom:2rem;animation:fadeDown .8s ease}
+    .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse-dot 2s infinite}
+    @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(8,145,178,0.5)}50%{box-shadow:0 0 0 6px rgba(8,145,178,0)}}
+    .hero h1{font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.08;margin-bottom:1.8rem;animation:fadeUp .9s ease}
+    .hero h1 .gradient-text{background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero h1 .italic{font-style:italic;color:var(--text-dim)}
+    .hero-desc{font-size:1.05rem;color:var(--text-dim);max-width:520px;margin-bottom:2.5rem;font-weight:300;line-height:1.85;animation:fadeUp 1s ease .1s both}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 1s ease .2s both}
+
+    /* HERO PHOTO */
+    .hero-photo-wrap{animation:fadeUp 1s ease .15s both}
+    .hero-photo-container{position:relative;width:280px;height:280px}
+    .hero-photo{width:280px;height:280px;border-radius:50%;object-fit:cover;border:3px solid var(--border);position:relative;z-index:2;filter:none}
+    .hero-photo-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid transparent;background:conic-gradient(from 0deg,#0891b2,#0d9488,#0891b2) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 8s linear infinite;z-index:1}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .hero-photo-glow{position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,0.12),transparent 70%);z-index:0}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border-radius:8px;font-family:var(--sans);font-size:.88rem;font-weight:600;text-decoration:none;cursor:pointer;transition:all .35s;border:none}
+    .btn-primary{background:var(--gradient-accent);color:var(--bg);box-shadow:0 4px 20px rgba(8,145,178,0.2)}
+    .btn-primary:hover{box-shadow:0 8px 40px rgba(0,229,160,0.3);transform:translateY(-3px)}
+    .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border-accent)}
+    .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* SECTIONS */
+    section{padding:7rem 2.5rem;max-width:1200px;margin:0 auto}
+    .section-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
+    .section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem;font-weight:400}
+    .section-subtitle{color:var(--text-dim);font-size:1rem;font-weight:300;max-width:600px;margin-bottom:3.5rem}
+    .section-divider{max-width:1200px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--border-accent),transparent)}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:4rem;align-items:start}
+    .about-text p{color:var(--text-dim);margin-bottom:1.4rem;font-size:.95rem;font-weight:300}
+    .about-text p strong{color:var(--text);font-weight:500}
+    .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .stat{padding:1.8rem 1.5rem;background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);position:relative;overflow:hidden}
+    .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient-accent);opacity:.5}
+    .stat-num{font-family:var(--serif);font-size:2.4rem;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+    .stat-label{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;margin-top:.3rem}
+
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.8rem}
+    .gallery-card{background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .4s;cursor:pointer}
+    .gallery-card:hover{border-color:var(--accent-dim);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 40px var(--accent-glow)}
+    .gallery-preview{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden}
+    .gallery-preview svg{width:100%;height:100%;display:block}
+    .gallery-card:hover .gallery-preview{filter:brightness(1.1)}
+    .gallery-info{padding:1.5rem 1.8rem}
+    .gallery-badge{font-family:var(--mono);font-size:.62rem;padding:.25rem .6rem;border-radius:4px;background:rgba(8,145,178,0.06);color:var(--accent);border:1px solid rgba(8,145,178,0.2);display:inline-block;margin-bottom:.8rem;letter-spacing:.06em;text-transform:uppercase}
+    .gallery-info h3{font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+    .gallery-info p{font-size:.82rem;color:var(--text-dim);line-height:1.55}
+    .gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(255,255,255,0.85) 100%);pointer-events:none}
+
+    /* LIGHTBOX */
+    .lightbox{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.6);backdrop-filter:blur(20px);justify-content:center;align-items:center;padding:2rem}
+    .lightbox.active{display:flex}
+    .lightbox-content{max-width:950px;width:100%;background:var(--bg-card);border:1px solid var(--border-accent);border-radius:var(--radius);overflow:hidden;animation:scaleIn .3s ease}
+    @keyframes scaleIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+    .lightbox-content svg{width:100%;display:block}
+    .lightbox-bottom{padding:1.5rem 2rem;border-top:1px solid var(--border)}
+    .lightbox-bottom h3{font-size:1.1rem;margin-bottom:.3rem}
+    .lightbox-bottom p{font-size:.85rem;color:var(--text-dim)}
+    .lightbox-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:var(--text-dim);font-size:2rem;cursor:pointer;transition:color .3s}
+    .lightbox-close:hover{color:var(--accent)}
+
+    /* REVIEWS */
+    .reviews-track{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem}
+    .review-card{background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;transition:all .35s}
+    .review-card:hover{border-color:var(--border-accent);transform:translateY(-3px)}
+    .review-stars{display:flex;gap:3px;margin-bottom:1rem}
+    .review-star{color:var(--accent-gold);font-size:.9rem}
+    .review-text{font-size:.9rem;color:var(--text-dim);line-height:1.75;margin-bottom:1.5rem;font-weight:300;font-style:italic}
+    .review-author{display:flex;align-items:center;gap:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+    .review-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:var(--bg);flex-shrink:0}
+    .av-green{background:var(--gradient-accent)}.av-warm{background:var(--gradient-warm)}.av-blue{background:linear-gradient(135deg,#00c4ff,#6366f1)}
+    .review-name{font-size:.88rem;font-weight:600}
+    .review-role{font-size:.72rem;color:var(--text-muted);margin-top:.15rem}
+    .review-source{position:absolute;top:1.5rem;right:1.8rem;font-family:var(--mono);font-size:.62rem;padding:.2rem .5rem;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+    .source-linkedin{background:rgba(10,102,194,0.1);color:#1a73ba;border:1px solid rgba(10,102,194,0.2)}
+    .source-upwork{background:rgba(20,168,0,0.08);color:#2e7d32;border:1px solid rgba(20,168,0,0.2)}
+    .source-freelancer{background:rgba(0,150,255,0.08);color:#1976d2;border:1px solid rgba(0,150,255,0.2)}
+
+    /* SKILLS */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+    .skill-card{background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:all .35s;position:relative;overflow:hidden}
+    .skill-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient-accent);opacity:0;transition:opacity .35s}
+    .skill-card:hover{border-color:var(--accent-dim);transform:translateY(-4px);background:var(--bg-card-hover)}
+    .skill-card:hover::after{opacity:1}
+    .skill-icon{width:48px;height:48px;border-radius:12px;background:rgba(8,145,178,0.06);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+    .skill-card h3{font-size:1rem;font-weight:600;margin-bottom:.5rem}
+    .skill-card p{font-size:.82rem;color:var(--text-dim);line-height:1.6}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .skill-tag{font-family:var(--mono);font-size:.65rem;padding:.3rem .7rem;background:rgba(8,145,178,0.06);border:1px solid var(--border);border-radius:4px;color:var(--accent)}
+
+    /* TIMELINE */
+    .timeline{position:relative;padding-left:3rem}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--border-accent),var(--border))}
+    .timeline-item{position:relative;padding-bottom:3.5rem}
+    .timeline-item:last-child{padding-bottom:0}
+    .timeline-dot{position:absolute;left:-3rem;top:.3rem;width:12px;height:12px;border:2px solid var(--accent);background:var(--bg);border-radius:50%;transform:translateX(-50%)}
+    .timeline-item:first-child .timeline-dot{background:var(--accent);box-shadow:0 0 14px rgba(8,145,178,0.2)}
+    .timeline-date{font-family:var(--mono);font-size:.7rem;color:var(--accent-dim);letter-spacing:.08em;margin-bottom:.4rem}
+    .timeline-role{font-size:1.15rem;font-weight:600;margin-bottom:.15rem}
+    .timeline-company{font-size:.88rem;color:var(--text-dim);margin-bottom:.8rem}
+    .timeline-desc{font-size:.84rem;color:var(--text-muted);line-height:1.7}
+
+    /* PROJECTS */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+    .project-card{background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:all .35s}
+    .project-card:hover{border-color:var(--accent-dim);transform:translateY(-3px)}
+    .project-badge{font-family:var(--mono);font-size:.62rem;padding:.25rem .6rem;border-radius:4px;background:rgba(8,145,178,0.06);color:var(--accent);border:1px solid rgba(8,145,178,0.2);display:inline-block;margin-bottom:1rem;letter-spacing:.06em;text-transform:uppercase}
+    .project-card h3{font-size:1.02rem;font-weight:600;margin-bottom:.6rem}
+    .project-card p{font-size:.82rem;color:var(--text-dim);line-height:1.65}
+    .project-tech{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+    .project-tech span{font-family:var(--mono);font-size:.64rem;padding:.2rem .6rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text-muted)}
+
+    /* EDUCATION */
+    .edu-card{background:var(--gradient-card);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem}
+    .edu-degree{font-family:var(--serif);font-size:1.4rem;margin-bottom:.3rem}
+    .edu-school{color:var(--text-dim);font-size:.92rem;margin-bottom:.3rem}
+    .edu-meta{font-family:var(--mono);font-size:.75rem;color:var(--accent-dim)}
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem}
+    .cert-item{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;font-size:.82rem;color:var(--text-dim)}
+    .cert-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+    /* CTA */
+    .cta-section{text-align:center;padding:7rem 2.5rem 8rem;max-width:750px;margin:0 auto;position:relative}
+    .cta-section::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,var(--accent-glow),transparent 70%);pointer-events:none}
+    .cta-desc{color:var(--text-dim);font-size:1rem;margin-bottom:2.5rem;font-weight:300}
+    .social-links{display:flex;justify-content:center;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+    .social-link{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.4rem;border:1px solid var(--border);border-radius:10px;color:var(--text-dim);text-decoration:none;font-size:.82rem;font-weight:500;transition:all .3s}
+    .social-link:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+    .social-link svg{width:16px;height:16px}
+    footer{padding:2rem;text-align:center;font-size:.72rem;color:var(--text-muted);border-top:1px solid var(--border)}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .edit-hint{text-align:center;margin-top:2rem;color:var(--text-muted);font-size:.78rem;font-family:var(--mono)}
+
+    @media(max-width:768px){
+      nav{padding:1rem 1.5rem}
+      .nav-links{display:none;position:fixed;inset:0;background:rgba(255,255,255,0.98);flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:99}
+      .nav-links.open{display:flex}.nav-links a{font-size:1.1rem}
+      .hamburger{display:flex}
+      .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+      .hamburger.open span:nth-child(2){opacity:0}
+      .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+      .hero{padding:7rem 1.5rem 3rem}
+      .hero-inner{grid-template-columns:1fr;text-align:center}
+      .hero-photo-wrap{order:-1;display:flex;justify-content:center}
+      .hero-photo-container{width:200px;height:200px}
+      .hero-photo{width:200px;height:200px}
+      .hero-desc{margin-left:auto;margin-right:auto}
+      .hero-actions{justify-content:center}
+      .about-grid{grid-template-columns:1fr;gap:2rem}
+      .gallery-grid,.projects-grid,.reviews-track{grid-template-columns:1fr}
+      section{padding:5rem 1.5rem}
+    }
+  </style>
+</head>
+<body>
+<div class="ambient-blob blob-1"></div>
+<div class="ambient-blob blob-2"></div>
+<div class="ambient-blob blob-3"></div>
+<nav>
+  <div class="nav-logo">Aziz Ullah</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#dashboards" onclick="closeNav()">Dashboards</a></li>
+    <li><a href="#reviews" onclick="closeNav()">Reviews</a></li>
+    <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+    <li><a href="#projects" onclick="closeNav()">Projects</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow-orb"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Available for Freelance & Full-time</div>
+      <h1>Aziz Ullah<br><span class="gradient-text">Data & BI</span> <span class="italic">Analyst</span></h1>
+      <p class="hero-desc">I transform raw data into strategic insights. Specializing in Power BI dashboards, data analytics, and business intelligence solutions that drive real decisions.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Get in Touch</a>
+        <a href="#dashboards" class="btn btn-outline">View My Work</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-container">
+        <div class="hero-photo-glow"></div>
+        <div class="hero-photo-ring"></div>
+        <img class="hero-photo" src="data:image/jpeg;base64,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" alt="Aziz Ullah" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about"><div class="reveal">
+  <div class="section-label">01 — About</div>
+  <h2 class="section-title">Turning Data Into Decisions</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>Power BI Analyst</strong> and Business Intelligence professional based in Jeddah, Saudi Arabia, with a proven track record of partnering with C-suite executives and department heads to deliver data-driven strategies.</p>
+      <p>From designing executive dashboards at <strong>Al-Zamil Heavy Industries</strong> to analyzing warranty claims at <strong>Al-Futtaim Group</strong>, I specialize in transforming complex datasets into clear, actionable insights that improve operations, reduce costs, and drive growth.</p>
+      <p>I hold a <strong>BBA in Business Analytics</strong> from Namal University and bring expertise across the full analytics stack — from SQL and Python to Power BI, SSRS, and Tableau.</p>
+    </div>
+    <div><div class="stats-row">
+      <div class="stat"><span class="stat-num">2+</span><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><span class="stat-num">10+</span><div class="stat-label">Dashboards Built</div></div>
+      <div class="stat"><span class="stat-num">3.34</span><div class="stat-label">CGPA / 4.0</div></div>
+      <div class="stat"><span class="stat-num">5</span><div class="stat-label">Certifications</div></div>
+    </div></div>
+  </div>
+</div></section>
+<div class="section-divider"></div>
+
+<!-- DASHBOARD GALLERY -->
+<section id="dashboards"><div class="reveal">
+  <div class="section-label">02 — Dashboard Gallery</div>
+  <h2 class="section-title">My Power BI Work</h2>
+  <p class="section-subtitle">Interactive dashboards built for real businesses — driving procurement efficiency, quality control, and project performance.</p>
+  <div class="gallery-grid">
+    <div class="gallery-card" onclick="openLightbox(0)"><div class="gallery-preview">
+      <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0891b2"/><stop offset="100%" stop-color="#0d9488"/></linearGradient></defs><rect width="640" height="400" fill="#f0f2f8"/><rect x="20" y="15" width="600" height="40" rx="6" fill="#ffffff"/><text x="35" y="40" font-family="monospace" font-size="11" fill="#0891b2">PROCUREMENT ANALYSIS</text><text x="520" y="40" font-family="monospace" font-size="9" fill="#9ca0b3">FY 2024</text><rect x="20" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Total Orders</text><text x="35" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0891b2">2,847</text><rect x="170" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="185" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Spend (SAR)</text><text x="185" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0d9488">14.2M</text><rect x="320" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="335" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Avg Lead Time</text><text x="335" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#d97706">12.4d</text><rect x="470" y="65" width="150" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="485" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">On-time %</text><text x="485" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0891b2">87.3%</text><rect x="20" y="148" width="295" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Monthly Spend by Category</text><rect x="50" y="195" width="22" height="120" rx="3" fill="url(#gA)" opacity=".9"/><rect x="85" y="225" width="22" height="90" rx="3" fill="url(#gA)" opacity=".7"/><rect x="120" y="245" width="22" height="70" rx="3" fill="url(#gA)" opacity=".6"/><rect x="155" y="210" width="22" height="105" rx="3" fill="url(#gA)" opacity=".8"/><rect x="190" y="260" width="22" height="55" rx="3" fill="url(#gA)" opacity=".5"/><rect x="225" y="235" width="22" height="80" rx="3" fill="url(#gA)" opacity=".65"/><rect x="260" y="200" width="22" height="115" rx="3" fill="url(#gA)" opacity=".85"/><rect x="325" y="148" width="295" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="340" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Vendor Distribution</text><circle cx="472" cy="280" r="60" fill="none" stroke="#0891b2" stroke-width="14" stroke-dasharray="120 257" opacity=".9"/><circle cx="472" cy="280" r="60" fill="none" stroke="#0d9488" stroke-width="14" stroke-dasharray="85 292" stroke-dashoffset="-120" opacity=".8"/><circle cx="472" cy="280" r="60" fill="none" stroke="#d97706" stroke-width="14" stroke-dasharray="60 317" stroke-dashoffset="-205" opacity=".7"/><circle cx="472" cy="280" r="60" fill="none" stroke="#e85d3a" stroke-width="14" stroke-dasharray="112 265" stroke-dashoffset="-265" opacity=".6"/><text x="455" y="276" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">42</text><text x="448" y="292" font-family="sans-serif" font-size="8" fill="#6b7085">Vendors</text></svg>
+      <div class="gallery-overlay"></div></div><div class="gallery-info"><div class="gallery-badge">Al-Zamil Heavy Industries</div><h3>Procurement Analysis Dashboard</h3><p>Track procurement performance, vendor distribution, spend categories, and delivery timelines.</p></div></div>
+
+    <div class="gallery-card" onclick="openLightbox(1)"><div class="gallery-preview">
+      <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="400" fill="#f0f2f8"/><rect x="20" y="15" width="600" height="40" rx="6" fill="#ffffff"/><text x="35" y="40" font-family="monospace" font-size="11" fill="#0d9488">PROJECT PERFORMANCE</text><text x="490" y="40" font-family="monospace" font-size="9" fill="#9ca0b3">Q1-Q4 2024</text><rect x="20" y="65" width="190" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Budget Variance</text><text x="35" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0891b2">+4.2%</text><rect x="220" y="65" width="190" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="235" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Cost Variance</text><text x="235" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#e85d3a">-2.1%</text><rect x="420" y="65" width="200" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="435" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Man-Hour Variance</text><text x="435" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#d97706">+1.8%</text><rect x="20" y="148" width="390" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Budget vs Actual (Monthly)</text><polyline points="50,330 95,310 140,295 185,280 230,270 275,250 320,240 365,235" fill="none" stroke="#0891b2" stroke-width="2.5" stroke-linecap="round"/><polyline points="50,325 95,315 140,305 185,290 230,285 275,260 320,255 365,245" fill="none" stroke="#0d9488" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/><circle cx="230" cy="270" r="3" fill="#0891b2"/><circle cx="320" cy="240" r="3" fill="#0891b2"/><circle cx="185" cy="290" r="3" fill="#0d9488"/><circle cx="275" cy="260" r="3" fill="#0d9488"/><rect x="420" y="148" width="200" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="435" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Completion Rate</text><path d="M 520 310 A 60 60 0 1 1 520 190" fill="none" stroke="#e2e4ec" stroke-width="10" stroke-linecap="round"/><path d="M 520 310 A 60 60 0 1 1 488 197" fill="none" stroke="url(#gA)" stroke-width="10" stroke-linecap="round"/><text x="498" y="262" font-family="sans-serif" font-size="26" font-weight="bold" fill="#1a1a2e">78%</text><text x="490" y="280" font-family="sans-serif" font-size="8" fill="#6b7085">On Track</text></svg>
+      <div class="gallery-overlay"></div></div><div class="gallery-info"><div class="gallery-badge">Al-Zamil Heavy Industries</div><h3>Project Performance Dashboard</h3><p>KPIs for cost variance, budget variance, man-hour tracking, and completion rates.</p></div></div>
+
+    <div class="gallery-card" onclick="openLightbox(2)"><div class="gallery-preview">
+      <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="400" fill="#f0f2f8"/><rect x="20" y="15" width="600" height="40" rx="6" fill="#ffffff"/><text x="35" y="40" font-family="monospace" font-size="11" fill="#d97706">WARRANTY CLAIMS ANALYSIS</text><text x="500" y="40" font-family="monospace" font-size="9" fill="#9ca0b3">Al-Futtaim</text><rect x="20" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Total Claims</text><text x="35" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#d97706">1,234</text><rect x="170" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="185" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Resolved</text><text x="185" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0891b2">1,089</text><rect x="320" y="65" width="140" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="335" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Pending</text><text x="335" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#e85d3a">145</text><rect x="470" y="65" width="150" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="485" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Avg Resolution</text><text x="485" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0d9488">4.2d</text><rect x="20" y="148" width="600" height="130" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Claims Trend (12 Months)</text><polygon points="45,260 90,248 135,252 180,240 225,235 270,245 315,230 360,222 405,228 450,215 495,210 540,205 585,198 585,265 45,265" fill="#d9770615"/><polyline points="45,260 90,248 135,252 180,240 225,235 270,245 315,230 360,222 405,228 450,215 495,210 540,205 585,198" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/><circle cx="315" cy="230" r="4" fill="#d97706"/><circle cx="540" cy="205" r="4" fill="#d97706"/><rect x="20" y="290" width="600" height="93" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="314" font-family="sans-serif" font-size="10" fill="#6b7085">Top Defect Categories</text><rect x="35" y="325" width="180" height="6" rx="2" fill="#e85d3a" opacity=".8"/><text x="220" y="332" font-family="monospace" font-size="8" fill="#6b7085">Engine — 32%</text><rect x="35" y="342" width="130" height="6" rx="2" fill="#d97706" opacity=".7"/><text x="170" y="349" font-family="monospace" font-size="8" fill="#6b7085">Transmission — 23%</text><rect x="35" y="359" width="95" height="6" rx="2" fill="#0d9488" opacity=".6"/><text x="135" y="366" font-family="monospace" font-size="8" fill="#6b7085">Electrical — 17%</text></svg>
+      <div class="gallery-overlay"></div></div><div class="gallery-info"><div class="gallery-badge">Al-Futtaim Group</div><h3>Warranty Claims Analysis</h3><p>Tracking warranty claims, resolution rates, defect categories, and trend analysis.</p></div></div>
+
+    <div class="gallery-card" onclick="openLightbox(3)"><div class="gallery-preview">
+      <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="400" fill="#f0f2f8"/><rect x="20" y="15" width="600" height="40" rx="6" fill="#ffffff"/><text x="35" y="40" font-family="monospace" font-size="11" fill="#e85d3a">QUALITY CONTROL</text><text x="480" y="40" font-family="monospace" font-size="9" fill="#9ca0b3">Al-Zamil HI</text><rect x="20" y="65" width="190" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Pass Rate</text><text x="35" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#0891b2">94.7%</text><rect x="220" y="65" width="190" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="235" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">NCR Count</text><text x="235" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#e85d3a">38</text><rect x="420" y="65" width="200" height="70" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="435" y="88" font-family="sans-serif" font-size="9" fill="#6b7085">Rework Rate</text><text x="435" y="118" font-family="sans-serif" font-size="22" font-weight="bold" fill="#d97706">3.1%</text><rect x="20" y="148" width="295" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="35" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">NCRs by Department</text><rect x="50" y="200" width="24" height="50" rx="2" fill="#0891b2" opacity=".8"/><rect x="50" y="250" width="24" height="25" rx="2" fill="#e85d3a" opacity=".7"/><rect x="90" y="190" width="24" height="60" rx="2" fill="#0891b2" opacity=".8"/><rect x="90" y="250" width="24" height="35" rx="2" fill="#e85d3a" opacity=".7"/><rect x="130" y="215" width="24" height="35" rx="2" fill="#0891b2" opacity=".8"/><rect x="130" y="250" width="24" height="15" rx="2" fill="#e85d3a" opacity=".7"/><rect x="170" y="195" width="24" height="55" rx="2" fill="#0891b2" opacity=".8"/><rect x="170" y="250" width="24" height="30" rx="2" fill="#e85d3a" opacity=".7"/><rect x="210" y="230" width="24" height="20" rx="2" fill="#0891b2" opacity=".8"/><rect x="210" y="250" width="24" height="10" rx="2" fill="#e85d3a" opacity=".7"/><rect x="250" y="205" width="24" height="45" rx="2" fill="#0891b2" opacity=".8"/><rect x="250" y="250" width="24" height="20" rx="2" fill="#e85d3a" opacity=".7"/><rect x="325" y="148" width="295" height="235" rx="8" fill="#ffffff" stroke="#e2e4ec"/><text x="340" y="172" font-family="sans-serif" font-size="10" fill="#6b7085">Weekly Inspection Heatmap</text><rect x="350" y="190" width="38" height="30" rx="4" fill="#0891b2" opacity=".2"/><rect x="393" y="190" width="38" height="30" rx="4" fill="#0891b2" opacity=".5"/><rect x="436" y="190" width="38" height="30" rx="4" fill="#0891b2" opacity=".8"/><rect x="479" y="190" width="38" height="30" rx="4" fill="#0891b2" opacity=".4"/><rect x="350" y="225" width="38" height="30" rx="4" fill="#0891b2" opacity=".6"/><rect x="393" y="225" width="38" height="30" rx="4" fill="#0891b2" opacity=".9"/><rect x="436" y="225" width="38" height="30" rx="4" fill="#0891b2" opacity=".3"/><rect x="479" y="225" width="38" height="30" rx="4" fill="#0891b2" opacity=".7"/><rect x="350" y="260" width="38" height="30" rx="4" fill="#e85d3a" opacity=".4"/><rect x="393" y="260" width="38" height="30" rx="4" fill="#0891b2" opacity=".6"/><rect x="436" y="260" width="38" height="30" rx="4" fill="#e85d3a" opacity=".3"/><rect x="479" y="260" width="38" height="30" rx="4" fill="#0891b2" opacity=".5"/><rect x="350" y="295" width="38" height="30" rx="4" fill="#0891b2" opacity=".7"/><rect x="393" y="295" width="38" height="30" rx="4" fill="#0891b2" opacity=".4"/><rect x="436" y="295" width="38" height="30" rx="4" fill="#d97706" opacity=".5"/><rect x="479" y="295" width="38" height="30" rx="4" fill="#0891b2" opacity=".8"/></svg>
+      <div class="gallery-overlay"></div></div><div class="gallery-info"><div class="gallery-badge">Al-Zamil Heavy Industries</div><h3>Quality Control Dashboard</h3><p>Inspection pass rates, NCR tracking, rework rates, and department-level quality metrics.</p></div></div>
+  </div>
+  <p class="edit-hint">Click any dashboard to enlarge · Replace SVG previews with your real screenshot images</p>
+</div></section>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)"><button class="lightbox-close" onclick="closeLightbox()">&times;</button><div class="lightbox-content" id="lightboxContent"></div></div>
+<div class="section-divider"></div>
+
+<!-- REVIEWS -->
+<section id="reviews"><div class="reveal">
+  <div class="section-label">03 — Client Reviews</div>
+  <h2 class="section-title">What People Say</h2>
+  <p class="section-subtitle">Testimonials from clients and colleagues across LinkedIn, Upwork, and Freelancer.</p>
+  <div class="reviews-track">
+    <div class="review-card"><div class="review-source source-upwork">Upwork</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Aziz delivered an outstanding Power BI dashboard that exceeded our expectations. His understanding of data visualization and business metrics is exceptional. The dashboard he built has become a core tool for our decision-making process."</p><div class="review-author"><div class="review-avatar av-green">MK</div><div><div class="review-name">Mohammed K.</div><div class="review-role">Operations Director — Manufacturing</div></div></div></div>
+    <div class="review-card"><div class="review-source source-linkedin">LinkedIn</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Working with Aziz was a fantastic experience. He quickly grasped our complex procurement data and transformed it into intuitive visualizations. His proactive communication and attention to detail made the entire project seamless."</p><div class="review-author"><div class="review-avatar av-blue">SA</div><div><div class="review-name">Sarah A.</div><div class="review-role">Senior Manager — Al-Zamil Group</div></div></div></div>
+    <div class="review-card"><div class="review-source source-freelancer">Freelancer</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Aziz built a comprehensive analytics dashboard that gave us real-time insight into our warranty operations. He identified patterns we hadn't noticed and helped us reduce recurring defects with clear, data-backed recommendations."</p><div class="review-author"><div class="review-avatar av-warm">JR</div><div><div class="review-name">James R.</div><div class="review-role">Automotive Quality Lead</div></div></div></div>
+    <div class="review-card"><div class="review-source source-upwork">Upwork</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Excellent work! Aziz took our raw Excel data and turned it into a polished, interactive Power BI report. He was responsive, delivered on time, and the final product was exactly what we needed. Will definitely hire again."</p><div class="review-author"><div class="review-avatar av-green">AH</div><div><div class="review-name">Ahmed H.</div><div class="review-role">Business Owner — Retail Analytics</div></div></div></div>
+    <div class="review-card"><div class="review-source source-linkedin">LinkedIn</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Aziz is a talented data analyst with strong skills in Power BI and SQL. During his time at our company, he consistently delivered insights that drove measurable improvements in project tracking and resource allocation."</p><div class="review-author"><div class="review-avatar av-blue">FK</div><div><div class="review-name">Fahad K.</div><div class="review-role">Project Manager — Heavy Industries</div></div></div></div>
+    <div class="review-card"><div class="review-source source-freelancer">Freelancer</div><div class="review-stars"><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span></div><p class="review-text">"Great communicator and skilled analyst. Aziz created a financial analysis dashboard that was clean, insightful, and easy for non-technical stakeholders to understand. Highly recommended for any BI or data visualization project."</p><div class="review-author"><div class="review-avatar av-warm">LM</div><div><div class="review-name">Layla M.</div><div class="review-role">Finance Manager — Consulting Firm</div></div></div></div>
+  </div>
+  <p class="edit-hint">★ Replace these placeholder reviews with your actual reviews from LinkedIn, Upwork & Freelancer</p>
+</div></section>
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills"><div class="reveal">
+  <div class="section-label">04 — Skills</div>
+  <h2 class="section-title">Tools & Expertise</h2>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">📊</div><h3>Business Intelligence</h3><p>Interactive dashboards providing real-time KPI visibility.</p><div class="skill-tags"><span class="skill-tag">Power BI</span><span class="skill-tag">SSRS</span><span class="skill-tag">Tableau</span><span class="skill-tag">DAX</span></div></div>
+    <div class="skill-card"><div class="skill-icon">🐍</div><h3>Programming & Data</h3><p>Efficient data extraction, transformation, and predictive modeling.</p><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">SPSS</span><span class="skill-tag">Excel</span></div></div>
+    <div class="skill-card"><div class="skill-icon">📈</div><h3>Analytics & Strategy</h3><p>Statistical and financial analysis to optimize operations.</p><div class="skill-tags"><span class="skill-tag">Financial Analysis</span><span class="skill-tag">Statistical Analysis</span><span class="skill-tag">Optimization</span></div></div>
+  </div>
+</div></section>
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience"><div class="reveal">
+  <div class="section-label">05 — Experience</div>
+  <h2 class="section-title">Professional Journey</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jan 2024 — Present</div><div class="timeline-role">Power BI Analyst</div><div class="timeline-company">Al-Zamil Heavy Industries LTD · Jeddah</div><div class="timeline-desc">Partnering with CEO, Directors, and Dept. Heads. Designing Power BI dashboards for project performance, procurement, inventory, and quality control. Deploying SSRS reports integrated within the ERP system.</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Oct 2023 — Jan 2024</div><div class="timeline-role">Business Analyst</div><div class="timeline-company">Al-Futtaim Group</div><div class="timeline-desc">Optimized warranty claim operations by analyzing data, building Power BI reports, and identifying trends — contributing to improved product reliability and cost savings.</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Mar 2023 — Jul 2023</div><div class="timeline-role">Outreach Coordinator</div><div class="timeline-company">Namal University</div><div class="timeline-desc">Led outreach campaigns enhancing brand engagement and broadening educational reach.</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jan 2023 — Mar 2023</div><div class="timeline-role">BI Intern</div><div class="timeline-company">Love For Data (LFD)</div><div class="timeline-desc">Crafted Power BI dashboards, transforming complex datasets into actionable insights for cross-functional teams.</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Feb 2022 — Jul 2022</div><div class="timeline-role">Junior Financial Analyst</div><div class="timeline-company">Namal University, Finance</div><div class="timeline-desc">Executed financial analysis on student dues and payments, streamlining financial operations.</div></div>
+  </div>
+</div></section>
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects"><div class="reveal">
+  <div class="section-label">06 — Projects</div>
+  <h2 class="section-title">Selected Work</h2>
+  <div class="projects-grid">
+    <div class="project-card"><div class="project-badge">Power BI</div><h3>Procurement Analysis Dashboard</h3><p>Comprehensive dashboard for Al-Zamil to track and optimize procurement performance.</p><div class="project-tech"><span>Power BI</span><span>DAX</span><span>SQL</span></div></div>
+    <div class="project-card"><div class="project-badge">Power BI</div><h3>Project Performance Dashboard</h3><p>KPIs including cost variance, budget variance, and man-hour variance at Al-Zamil.</p><div class="project-tech"><span>Power BI</span><span>KPI Design</span><span>ERP</span></div></div>
+    <div class="project-card"><div class="project-badge">Power BI</div><h3>Warranty Claims Analysis</h3><p>Dashboard for Al-Futtaim Automotive to track claims and reduce recurring issues.</p><div class="project-tech"><span>Power BI</span><span>Data Modeling</span></div></div>
+    <div class="project-card"><div class="project-badge">Machine Learning</div><h3>Financial Crisis Prediction</h3><p>Final Year Project — ML model to predict financial crises using historical data.</p><div class="project-tech"><span>Python</span><span>Scikit-learn</span><span>Pandas</span></div></div>
+    <div class="project-card"><div class="project-badge">Python</div><h3>COVID-19 Analysis</h3><p>Data analysis exploring pandemic trends and forecasting using Python.</p><div class="project-tech"><span>Python</span><span>Matplotlib</span><span>Forecasting</span></div></div>
+    <div class="project-card"><div class="project-badge">Excel / SPSS</div><h3>HR Analytics Dashboard</h3><p>Comprehensive HR analysis with visualizations for international clients.</p><div class="project-tech"><span>Excel</span><span>SPSS</span><span>HR Metrics</span></div></div>
+  </div>
+</div></section>
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education"><div class="reveal">
+  <div class="section-label">07 — Education</div>
+  <h2 class="section-title">Academic Background</h2>
+  <div class="edu-card"><div class="edu-degree">BBA — Business Analytics</div><div class="edu-school">Namal University, Mianwali</div><div class="edu-meta">Aug 2019 — Jul 2023 · CGPA 3.34 / 4.0</div></div>
+  <div class="certs-grid">
+    <div class="cert-item"><div class="cert-dot"></div>Microsoft Power BI Data Analyst</div>
+    <div class="cert-item"><div class="cert-dot"></div>Python for Financial Analysis</div>
+    <div class="cert-item"><div class="cert-dot"></div>Business Analysis & Process Mgmt</div>
+    <div class="cert-item"><div class="cert-dot"></div>Intro to Data Science</div>
+    <div class="cert-item"><div class="cert-dot"></div>Data Science Orientation</div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact" class="cta-section"><div class="reveal">
+  <div class="section-label">08 — Contact</div>
+  <h2 class="section-title">Let's Work Together</h2>
+  <p class="cta-desc">Have a project in mind or need a BI consultant? I'm available for freelance work and full-time opportunities.</p>
+  <a href="mailto:azizullah201968@gmail.com" class="btn btn-primary"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>azizullah201968@gmail.com</a>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/aziz--ullah/" target="_blank" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+    <a href="https://www.upwork.com/freelancers/~01bf77b532c2126c7c" target="_blank" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06a2.705 2.705 0 012.703 2.703 2.707 2.707 0 01-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112a2.551 2.551 0 01-2.547 2.548 2.55 2.55 0 01-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>Upwork</a>
+    <a href="https://www.freelancer.com/u/azizva" target="_blank" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.096 3.076l1.634 2.292L24 3.076M5.503 20.924l4.474-4.374-2.692-4.27m-1.089 7.058L1.199 24H7.83l2.262-4.576m4.839-5.402L12.9 10.35l1.597-3.293 3.665 5.476h3.262l-5.652-8.38.753-1.077H12.87l-2.988 6.477 1.14 1.573-2.244 4.376 2.252 3.396"/></svg>Freelancer</a>
+    <a href="tel:+966500473021" class="social-link"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>+966 500 473 021</a>
+  </div>
+</div></section>
+
+<footer><p>&copy; 2025 Aziz Ullah &middot; Crafted with precision & data.</p></footer>
+
+<script>
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeNav(){document.getElementById('navLinks').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+const observer=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const dashboards=document.querySelectorAll('.gallery-card');
+function openLightbox(i){const c=dashboards[i];const s=c.querySelector('.gallery-preview').innerHTML;const t=c.querySelector('.gallery-info h3').textContent;const d=c.querySelector('.gallery-info p').textContent;document.getElementById('lightboxContent').innerHTML=s.replace('class="gallery-overlay"','style="display:none"')+'<div class="lightbox-bottom"><h3>'+t+'</h3><p>'+d+'</p></div>';document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden'}
+function closeLightbox(e){if(e&&e.target!==e.currentTarget&&!e.target.classList.contains('lightbox-close'))return;document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+</script>
+</body>
+</html>
